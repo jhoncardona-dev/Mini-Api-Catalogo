@@ -1,13 +1,8 @@
-# Mini-API de Catálogo
+# API de la Tienda
 
-Evidencia **GA1-AA3-EV04** de la Guía 1 de APIs con FastAPI. La aplicación publica un catálogo de productos almacenado temporalmente en memoria.
+Proyecto actualizado para la Guía 2 de FastAPI. Implementa CRUD completo de productos y categorías usando Pydantic y APIRouter.
 
-## Requisitos
-
-- Python 3.10 o superior
-- Visual Studio Code
-
-## Instalación en Windows PowerShell
+## Instalar
 
 ```powershell
 python -m venv venv
@@ -15,51 +10,49 @@ python -m venv venv
 python -m pip install -r requirements.txt
 ```
 
-Si PowerShell impide activar el entorno, ejecute una vez en esa terminal:
+## Ejecutar
 
 ```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+python -m uvicorn main:app --reload
 ```
 
-## Ejecutar la API
+Abra `http://127.0.0.1:8000/docs`.
 
-```powershell
-uvicorn main:app --reload
-```
+## Organización
 
-Abra:
-
-- API: `http://127.0.0.1:8000/`
-- Swagger UI: `http://127.0.0.1:8000/docs`
-- ReDoc: `http://127.0.0.1:8000/redoc`
+- `main.py`: crea la aplicación y conecta los routers.
+- `routers/productos.py`: modelo, datos y CRUD de productos.
+- `routers/categorias.py`: modelo, datos y CRUD de categorías.
+- `test_main.py`: pruebas automáticas.
 
 ## Endpoints
 
-- `GET /`: devuelve un mensaje de bienvenida.
-- `GET /productos`: devuelve los tres productos.
-- `GET /productos/{producto_id}`: busca por ID y responde 404 si no existe.
-- `GET /categorias`: devuelve categorías distintas.
-- `GET /buscar?nombre=mouse`: busca coincidencias parciales sin distinguir mayúsculas.
+### Productos
 
-## Pruebas automáticas
+- `GET /productos`
+- `GET /productos/buscar?nombre=monitor`
+- `GET /productos/{producto_id}`
+- `POST /productos`
+- `PUT /productos/{producto_id}`
+- `DELETE /productos/{producto_id}`
+
+### Categorías
+
+- `GET /categorias`
+- `GET /categorias/{categoria_id}`
+- `POST /categorias`
+- `PUT /categorias/{categoria_id}`
+- `DELETE /categorias/{categoria_id}`
+
+## Respuestas importantes
+
+- `200`: consulta, actualización o eliminación correcta.
+- `201`: recurso creado correctamente.
+- `404`: el ID solicitado no existe.
+- `422`: los datos enviados están incompletos o son inválidos.
+
+## Ejecutar pruebas
 
 ```powershell
-pytest -q
+python -m pytest -q
 ```
-
-## Evidencia en Swagger UI
-
-En `/docs`, pruebe los cinco endpoints con **Try it out** y **Execute**. Capture la operación y la respuesta. Para el endpoint por ID use `2`; para la búsqueda use `mouse`.
-
-## Publicar en GitHub
-
-```powershell
-git init
-git add .
-git commit -m "Completar Mini-API de Catalogo"
-git branch -M main
-git remote add origin URL_DE_SU_REPOSITORIO
-git push -u origin main
-```
-
-Reemplace `URL_DE_SU_REPOSITORIO` por la dirección creada en GitHub. El enlace final depende de su cuenta y por eso no se puede completar de forma automática en esta entrega.
