@@ -7,6 +7,7 @@ app = FastAPI(
     title="API de la Tienda",
     description="CRUD de productos y categorías organizado con APIRouter",
     version="2.0.0",
+    openapi_url="/schema",
 )
 
 app.include_router(productos.router)
