@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from routers import categorias, productos
+from routers import auth, categorias, productos
 
 
 app = FastAPI(
@@ -10,6 +10,7 @@ app = FastAPI(
     openapi_url="/schema",
 )
 
+app.include_router(auth.router)
 app.include_router(productos.router)
 app.include_router(categorias.router)
 
